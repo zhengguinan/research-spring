@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-lazy-init="false" default-autowire="byName">
+    <!-- 第一种：构造器参数循环依赖 -->
+    <!--<bean id="a" class="circular.reference.StudentA">-->
+        <!--<constructor-arg index="0" ref="b"/>-->
+    <!--</bean>-->
+    <!--<bean id="b" class="circular.reference.StudentB">-->
+        <!--<constructor-arg index="0" ref="c"/>-->
+    <!--</bean>-->
+    <!--<bean id="c" class="circular.reference.StudentC">-->
+        <!--<constructor-arg index="0" ref="a"/>-->
+    <!--</bean>-->
+
+    <!-- 第二种：setter方式单例，默认方式 -->
+    <!--scope="singleton"(默认就是单例方式)  -->
+    <!--<bean id="a" class="circular.reference.StudentA">
+        <property name="studentB" ref="b"/>
+    </bean>
+    <bean id="b" class="circular.reference.StudentB">
+        <property name="studentC" ref="c"/>
+    </bean>
+    <bean id="c" class="circular.reference.StudentC">
+        <property name="studentA" ref="a"/>
+    </bean>-->
+
+    <!-- 第三种：setter方式原型，prototype -->
+    <bean id="a" class="circular.reference.StudentA" scope="prototype">
+        <property name="studentB" ref="b"></property>
+    </bean>
+    <bean id="b" class="circular.reference.StudentB" scope="prototype">
+        <property name="studentC" ref="c"></property>
+    </bean>
+    <bean id="c" class="circular.reference.StudentC" scope="prototype">
+        <property name="studentA" ref="a"></property>
+    </bean>
+</beans>
